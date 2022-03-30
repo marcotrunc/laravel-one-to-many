@@ -5,7 +5,7 @@
     <form action="{{route('admin.posts.store')}}" method="POST">
         @endif
         @csrf
-        <div class="row">
+        <div class="row">        
             {{-- Errors --}}
             @if($errors->any())
             <div class="alert alert-danger">
@@ -15,15 +15,30 @@
                     @endforeach
                 </ul>
             </div>
+            <div class="col-12">
+            @else
+            <div class="col-8">
             @endif
             {{-- Form Fields  --}}
-            <div class="col-12">
                 <div class="form-group">
                     <label for="title">Titolo</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{old('title',$post->title)}}" />
                     <small id="titleHelp" class="form-text text-muted">Inserici qui il titolo del tuo post</small>
                 </div>
             </div>
+
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="category-pill">Categoria</label>
+                    <select class="form-control" id="category-pill" name="category_id">
+                    <option value="">Altro</option>
+                      @foreach ($categories as $category)
+                      <option value="{{$category->id}}" @if(old('category_id',$post->category_id) == $category->id) selected @endif>{{$category->label}} </option>
+                      @endforeach
+                    </select>
+                  </div>
+            </div>
+
             <div class="col-12">
                 <div class="form-group">
                     <label for="content">Contenuto</label>
@@ -33,7 +48,7 @@
             <div class="col-11">
                 <div class="form-group">
                     <label for="image">Link dell'immagine</label>
-                    <input type="text" class="form-control" id="image" name="image" value="{{old('image',$post->image)}}">
+                    <input type="text" class="form-control @error('image') is-invalid @enderror" id="image" name="image" value="{{old('image',$post->image)}}">
                     <small id="imageHelp" class="form-text text-muted">Inserici qui il link dell'immagine</small>
                 </div>
             </div>

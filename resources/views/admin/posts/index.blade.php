@@ -14,7 +14,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Title</th>
-          <th scope="col">slug</th>
+          <th scope="col">Categoria</th>
           <th scope="col">Creato il</th>
           <th scope="col">actions</th>
         </tr>
@@ -24,7 +24,13 @@
         <tr>
           <th scope="row">{{$post->id}}</th>
           <td>{{$post->title}}</td>
-          <td>{{$post->slug}}</td>
+          <td>
+            @if($post->category)
+              <span class="badge badge-pill badge-{{$post->category->color}}">{{$post->category->label}}</span>
+            @else 
+              <span> Nessuna categoria</span>  
+            @endif
+          </td>
           <td>{{$post->created_at}}</td>
           <td class="d-flex justify-content-between align-items-center">
           {{-- Show --}}
@@ -48,6 +54,26 @@
       @endforelse
     </tbody>
   </table>
+
+  {{-- Paginator --}}
+  @if($posts->hasPages())
+  <div class="d-flex justify-content-center">
+    {{$posts->links()}}
+  </div>
+  @endif
+  <hr>
+  
+  {{-- Link-Categories --}}
+  <div class="row">
+    @foreach($categories as $cat)
+      <div class="col-4 mb-4">
+        <h3>{{$cat->label}}</h3>
+        @foreach($cat->posts as $p)
+          <h6><a href="{{route('admin.posts.show', $p->id)}}">{{$p->title}}</a></h6>
+        @endforeach
+      </div>
+    @endforeach
+  </div>
 @endsection
 @section('others-script')
 <script src="{{asset('js/delete-script.js')}}" defer></script>

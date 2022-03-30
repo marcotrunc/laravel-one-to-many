@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Str;
@@ -17,8 +18,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        return view('admin.posts.index', compact('posts'));
+        $posts = Post::orderBy('id', 'DESC')->paginate(20);
+        $categories = Category::all();
+        return view('admin.posts.index', compact('posts', 'categories'));
     }
 
     /**
@@ -29,7 +31,8 @@ class PostController extends Controller
     public function create()
     {
         $post = new Post();
-        return view('admin.posts.create', compact('post'));
+        $categories = Category::all();
+        return view('admin.posts.create', compact('post', 'categories'));
     }
 
     /**
@@ -43,7 +46,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|string|unique:posts|min:5|max:50',
             'content' => 'required |string',
-            'image' => 'nullable|url'
+            'image' => 'nullable|url',
+            'category_id' => 'nullable|exists:categories,id'
         ]);
 
         $data = $request->all();
@@ -51,7 +55,7 @@ class PostController extends Controller
         $post = new Post();
         $post->fill($data);
         $post->save();
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('message', 'Il nuovo post è stato creato con successo');
     }
 
     /**
@@ -73,7 +77,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -88,7 +93,8 @@ class PostController extends Controller
         $request->validate([
             'title' => ['required', 'string', Rule::unique('posts')->ignore($post->id), 'min:5', 'max:50'],
             'content' => 'required |string',
-            'image' => 'nullable|url'
+            'image' => 'nullable|url',
+            'category_id' => 'nullable|exists:categories,id'
         ]);
         $data = $request->all();
         $data['slug'] = Str::slug($request->title, '-');
