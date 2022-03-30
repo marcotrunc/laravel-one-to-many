@@ -15,6 +15,7 @@
           <th scope="col">#</th>
           <th scope="col">Title</th>
           <th scope="col">Categoria</th>
+          <th scope="col">Autore</th>
           <th scope="col">Creato il</th>
           <th scope="col">actions</th>
         </tr>
@@ -29,6 +30,13 @@
               <span class="badge badge-pill badge-{{$post->category->color}}">{{$post->category->label}}</span>
             @else 
               <span> Nessuna categoria</span>  
+            @endif
+          </td>
+          <td>
+            @if($post->user)
+            {{$post->user->name}}
+            @else
+            Utente Sconosciuto
             @endif
           </td>
           <td>{{$post->created_at}}</td>

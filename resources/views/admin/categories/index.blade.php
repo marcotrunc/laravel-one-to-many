@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+ {{-- Header --}}
+ <header class="d-flex justify-content-between">
+  <h1>Tutte le categorie</h1>
+  <div>
+    <a href="{{route('admin.categories.create')}}" class="btn btn-success d-flex align-content-center">Aggiungi</a>
+  </div>
+</header>
+{{-- Table --}}
 <table class="table">
     <thead class="thead-dark">
       <tr>

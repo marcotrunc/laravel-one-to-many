@@ -5,6 +5,7 @@ use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Auth;
 
 require_once 'vendor/autoload.php';
 
@@ -23,6 +24,7 @@ class PostSeeder extends Seeder
             $post = new Post();
             $post->title = $faker->text(50);
             $post->category_id = $category_ids[rand(0, (count($category_ids) - 1))];
+            $post->user_id = 1;
             $post->content = $faker->paragraph(2, false);
             $post->image = $faker->imageUrl(50, 50);
             $post->slug = Str::slug($post->title, '-');
