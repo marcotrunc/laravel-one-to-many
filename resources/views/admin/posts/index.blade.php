@@ -12,12 +12,12 @@
   <table class="table table-dark mt-4">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Title</th>
-          <th scope="col">Categoria</th>
-          <th scope="col">Autore</th>
-          <th scope="col">Creato il</th>
-          <th scope="col">actions</th>
+          <th >#</th>
+          <th>Title</th>
+          <th>Categoria</th>
+          <th>Autore</th>
+          <th>Creato il</th>
+          <th>actions</th>
         </tr>
       </thead>
     <tbody>

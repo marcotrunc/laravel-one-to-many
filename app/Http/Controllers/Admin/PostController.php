@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -53,6 +54,7 @@ class PostController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($request->title, '-');
         $post = new Post();
+        $post->user_id = Auth::id();
         $post->fill($data);
         $post->save();
         return redirect()->route('admin.posts.index')->with('message', 'Il nuovo post è stato creato con successo');
