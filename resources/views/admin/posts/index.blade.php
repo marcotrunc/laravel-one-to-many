@@ -33,18 +33,18 @@
           </td>
           <td>{{$post->created_at}}</td>
           <td class="d-flex justify-content-between align-items-center">
-          {{-- Show --}}
-          <a href="{{route('admin.posts.show',$post->id)}}" class="btn btn-sm btn-info">
-            <i class="fa-solid fa-eye"></i></a>
-            {{-- Edit --}}
-          <a href="{{route('admin.posts.edit',$post->id)}}" class="btn btn-sm btn-warning">
-            <i class="fa-solid fa-pencil"></i></a> 
-            {{-- Delete --}}
-          <form action="{{route('admin.posts.destroy', $post->id)}}" method="POST"  class="delete-form" data-title="{{$post->title}}">
-            @method('DELETE')
-            @csrf
-            <button type="submit" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
-          </form>
+            {{-- Show --}}
+            <a href="{{route('admin.posts.show',$post->id)}}" class="btn btn-sm btn-info">
+              <i class="fa-solid fa-eye"></i></a>
+              {{-- Edit --}}
+            <a href="{{route('admin.posts.edit',$post->id)}}" class="btn btn-sm btn-warning">
+              <i class="fa-solid fa-pencil"></i></a> 
+              {{-- Delete --}}
+            <form action="{{route('admin.posts.destroy', $post->id)}}" method="POST"  class="delete-form" data-title="{{$post->title}}">
+              @method('DELETE')
+              @csrf
+              <button type="submit" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+            </form>
           </td>
         </tr>
       @empty
