@@ -19,10 +19,10 @@ class PostSeeder extends Seeder
     {
         $category_ids = Category::pluck('id')->toArray();
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $post = new Post();
             $post->title = $faker->text(50);
-            $post->category_id = $category_ids[rand(0, count($category_ids))];
+            $post->category_id = $category_ids[rand(0, (count($category_ids) - 1))];
             $post->content = $faker->paragraph(2, false);
             $post->image = $faker->imageUrl(50, 50);
             $post->slug = Str::slug($post->title, '-');
